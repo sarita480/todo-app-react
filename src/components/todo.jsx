@@ -1,18 +1,24 @@
 import React,{Component} from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom"
-
+import { BrowserRouter as Router, Routes,Route } from "react-router-dom"
+import withNavigation from "./WithNavigation";
 
 class TodoApp extends Component
 {
     render()
     {
+        const LoginComponentWithNavigation = withNavigation(LoginComponent);
+
         return(
             <div>
                 <Router>
-                    <>
-                        <Route path="/login " component ={LoginComponent}/>
-                        <Route path="/welcome" Component={WelcomeComponent}/>
-                    </>
+                    <Routes>
+                   {/* const LoginComponentWithNavigation = withNavigation(LoginComponent);*/}
+
+                        <Route path="/" element={<LoginComponent />} />
+                        <Route path="/login" element={<LoginComponentWithNavigation />} />
+                        <Route path="/welcome" element={<WelcomeComponent />} />
+                        <Route path ="*" element={<ErrorComponent />}/>
+                    </Routes>
                 </Router>
             {/*<LoginComponent></LoginComponent>
             <WelcomeComponent></WelcomeComponent>*/}
@@ -65,7 +71,7 @@ class LoginComponent extends Component
         //sarita, dummy(hard coded username and password)
         if(this.state.username === 'sarita' && this.state.password==='dummy')
         {
-            console.log("successful")
+            this.props.navigate(`/welcome`)
             this.setState({showSuccessMessage:true})
             this.setState({haslogInFailed:false})
         }
@@ -94,6 +100,13 @@ class LoginComponent extends Component
     }
     
 }
+function ErrorComponent()
+{
+    return(
+        <div>None of the url matched. I don't know where to redirect.</div>
+    )
+}
+
 // function ShowInvalidCredentials(props)
 //     {
 //         if(props.haslogInFailed)
