@@ -1,15 +1,37 @@
 import React,{Component} from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom"
+
 
 class TodoApp extends Component
 {
     render()
     {
         return(
-            <LoginComponent></LoginComponent>
+            <div>
+                <Router>
+                    <>
+                        <Route path="/login " component ={LoginComponent}/>
+                        <Route path="/welcome" Component={WelcomeComponent}/>
+                    </>
+                </Router>
+            {/*<LoginComponent></LoginComponent>
+            <WelcomeComponent></WelcomeComponent>*/}
+            </div>
         )
     }
 }
-class LoginComponent extends Component{
+class WelcomeComponent extends Component
+{
+    render()
+    {
+        return (
+            <div>Hello this is welcome component</div>
+        )
+    }
+
+}
+class LoginComponent extends Component
+{
     constructor(props)
     {
         super(props)
@@ -17,23 +39,25 @@ class LoginComponent extends Component{
         {
             username:'sarita',
             password:'',
-            haslogInFailed:'false',
-            showSuccessMessage:'false'
+            haslogInFailed:false,
+            showSuccessMessage:false
         }
         this.handleUserNameChange = this.handleUserNameChange.bind(this)
         this.handleUserPasswordChange= this.handleUserPasswordChange.bind(this)
         this.logInClicked = this.logInClicked.bind(this)
+        
+        
 
     }
     handleUserNameChange(event)
     {
         //gives the value which is being changed
-        console.log(event.target.value);
+       // console.log(event.target.value);
         this.setState({username:event.target.value })
     }
     handleUserPasswordChange(event)
     {
-        console.log(event.target.value)
+       // console.log(event.target.value)
         this.setState({password:event.target.value})
     }
     logInClicked()
@@ -57,26 +81,35 @@ class LoginComponent extends Component{
     render()
     {
         return(
-            <div >
-                <showInvalidCredentials haslogInFailed={this.state.haslogInFailed}/>
-                <div>Login successful</div>
-           User Name:<input type="text" name="username" value={this.state.username} onChange={this.handleUserNameChange}/><br/>
-           Password:<input type="password" name="password" value={this.state.password} onChange={this.handleUserPasswordChange}/><br/>
+            <div>
+               {/* <ShowInvalidCredentials haslogInFailed={this.state.haslogInFailed}/>
+               <LogInSuccess showSuccessMessage={this.state.showSuccessMessage} />  */}
+                {this.state.haslogInFailed && <div>Invalid Credentials</div>}
+               {this.state.showSuccessMessage && <div>Login successful</div>}
+           User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleUserNameChange}/>
+           Password: <input type="password" name="password" value={this.state.password} onChange={this.handleUserPasswordChange}/>
            <button back onClick={this.logInClicked}>Login</button>
            </div>
         )
     }
     
 }
-function showInvalidCredentials(props)
-    {
-        if(props.haslogInFailed)
-        {
-            return <div>Invalid Credentials</div>
-        }
-        else
-        {
-            return <div>Login Successful</div>
-        }
-    }
+// function ShowInvalidCredentials(props)
+//     {
+//         if(props.haslogInFailed)
+//         {
+//             return <div>Invalid Credentials</div>
+//         }
+    
+//        return null
+//     }
+//  function LogInSuccess(props)
+//     {
+//         if(props.showSuccessMessage)
+//         {
+//             return <div>Login successful</div>
+//         }
+        
+//         return null
+//     }
 export default TodoApp
