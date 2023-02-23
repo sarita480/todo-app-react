@@ -7,6 +7,8 @@ import withParams from './WithParams.jsx'
 
 import AuthenticationService from './AuthenticationService.js'
 import AuthenticatedRoute from './AuthenticatedRoute.jsx'
+import WelcomeComponent from './WelcomeComponent.jsx'
+
 
 class TodoApp extends Component {
     render() {
@@ -55,7 +57,7 @@ class HeaderComponent extends Component {
         return (
             <header>
                 <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                    <div><a href="http://www.in28minutes.com" className="navbar-brand">in28Minutes</a></div>
+                    <div><a href="http://www.google.com" className="navbar-brand">Google</a></div>
                     <ul className="navbar-nav">
                         {isUserLoggedIn && <li><Link className="nav-link" to="/welcome/in28minutes">Home</Link></li>}
                         {isUserLoggedIn && <li><Link className="nav-link" to="/todos">Todos</Link></li>}
@@ -100,7 +102,7 @@ class LoginComponent extends Component {
   }
 
   loginClicked() {
-    if(this.state.username==='in28minutes' && this.state.password==='dummy'){
+    if(this.state.username==='sarita' && this.state.password==='dummy'){
       AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
       this.props.navigate(`/welcome/${this.state.username}`)
         }
@@ -113,7 +115,7 @@ class LoginComponent extends Component {
 
     render() {
         return (
-          <div>
+          <div className='form-outline mb-4'>
               {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
                 {this.state.showSuccessMessage && <div>Login Sucessful</div>}
               <div className="TodoApp">
@@ -160,7 +162,7 @@ class ListTodosComponent extends Component {
         return (
             <div>
                  <h1>List Todos</h1>
-                 <div className="container">
+                 <div className='container'>
                     <table className="table">
                         <thead>
                             <tr>
@@ -185,20 +187,6 @@ class ListTodosComponent extends Component {
                  </div>
             </div>
         )
-    }
-}
-
-class WelcomeComponent extends Component {
-    render() {
-
-        return (
-          <>
-                <h1>Welcome!</h1>
-                <div className="container">
-                Welcome {this.props.params.name}. You can manage your todos <Link to="/todos">here</Link>.
-                </div>
-            </>
-        )        
     }
 }
 

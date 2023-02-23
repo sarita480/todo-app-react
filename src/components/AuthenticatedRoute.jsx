@@ -7,6 +7,7 @@ class AuthenticatedRoute extends Component {
     if (AuthenticationService.isUserLoggedIn()) {
       return {...this.props.children}
     } else {
+      //redirect to ="/login" was previous version
       return <Navigate to="/login" />
     }
   }
